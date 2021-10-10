@@ -22,7 +22,7 @@
             "source_ami": "{{user `source_ami`}}",
             "instance_type": "{{user `instance_type`}}",
             "ssh_username":  "{{user `ssh_user`}}",
-            "ami_name": "packer-sangchul-web-{{timestamp}}",
+            "ami_name": "{{user `ami_name`}}-{{timestamp}}",
             "launch_block_device_mappings": [
                 {
                     "device_name": "/dev/xvda",
@@ -37,7 +37,7 @@
             "associate_public_ip_address": true,
             "ssh_timeout": "10m",
             "tags": {
-                "Name": "sangchul-web-packer-image",
+                "Name": "{{user `ami_name`}}-{{timestamp}}-image",
                 "Owner" : "sangchul",
                 "Creator" : "packer",
                 "Release": "latest",
@@ -47,10 +47,10 @@
                 "Name": "packer-build-instance"
             },
             "run_volume_tags": {
-                "Name": "packer-image-volume"
+                "Name": "{{user `ami_name`}}-{{timestamp}}-volume"
             },
             "snapshot_tags": {
-                "Name": "packer-image-snapshot"
+                "Name": "{{user `ami_name`}}-{{timestamp}}-snapshot"
             },
             "ami_description": "Sangchul.kr Linux Image"
         }
