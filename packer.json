@@ -19,7 +19,7 @@
             "access_key": "{{user `access_key`}}",
             "secret_key": "{{user `secret_key`}}",
             "region": "{{user `region`}}",
-	    "source_ami": "{{user `source_ami`}}",
+            "source_ami": "{{user `source_ami`}}",
             "instance_type": "{{user `instance_type`}}",
             "ssh_username":  "{{user `ssh_user`}}",
             "ami_name": "packer-sangchul-web-{{timestamp}}",
@@ -60,12 +60,6 @@
             "inline": [
                 "sudo yum update -y",
                 "sudo yum install -y git"
-            ]
-        },
-        {
-            "type": "shell",
-            "inline": [
-            "sh provision/init-script.sh"
             ]
         }
     ]
