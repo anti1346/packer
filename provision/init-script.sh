@@ -1,3 +1,3 @@
 #!/bin/bash
 
-yum install -y wget
+sudo yum install -y wget
