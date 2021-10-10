@@ -6,7 +6,7 @@
         "region": "{{env `AWS_REGION`}}",
         "source_ami": "{{env `AWS_SOURCE_AMI`}}",
         "instance_type": "{{env `INSTANCE_TYPE`}}",
-        "ssh_user": "{{env `SSH_USER`}}",
+        "ssh_username": "{{env `SSH_USERNAME`}}",
         "ami_name": "{{env `AMI_NAME`}}",
         "vpc_id": "{{env `VPC_ID`}}",
         "subnet_id": "{{env `SUBNET_ID`}}",
@@ -22,7 +22,7 @@
             "source_ami": "{{user `source_ami`}}",
             "instance_type": "{{user `instance_type`}}",
             "communicator": "ssh",
-            "ssh_username":  "{{user `ssh_user`}}",
+            "ssh_username":  "{{user `ssh_username`}}",
             "ssh_private_key_file": "~/aws-key/sangchul-packer.pem",
             "ami_name": "packer-sangchul-web-{{timestamp}}",
             "launch_block_device_mappings": [
