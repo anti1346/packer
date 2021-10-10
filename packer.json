@@ -6,7 +6,7 @@
         "region": "{{env `AWS_REGION`}}",
         "source_ami": "{{env `AWS_SOURCE_AMI`}}",
         "instance_type": "{{env `INSTANCE_TYPE`}}",
-        "ssh_username": "{{env `SSH_USERNAME`}}",
+        "ssh_user": "{{env `SSH_USER`}}",
         "ami_name": "{{env `AMI_NAME`}}",
         "vpc_id": "{{env `VPC_ID`}}",
         "subnet_id": "{{env `SUBNET_ID`}}",
@@ -21,9 +21,7 @@
             "region": "{{user `region`}}",
             "source_ami": "{{user `source_ami`}}",
             "instance_type": "{{user `instance_type`}}",
-            "communicator": "ssh",
-            "ssh_username":  "{{user `ssh_username`}}",
-            "ssh_private_key_file": "~/aws-key/sangchul-packer.pem",
+            "ssh_username":  "{{user `ssh_user`}}",
             "ami_name": "packer-sangchul-web-{{timestamp}}",
             "launch_block_device_mappings": [
                 {
@@ -43,7 +41,7 @@
                 "Owner" : "sangchul",
                 "Creator" : "packer",
                 "Release": "latest",
-                "Description": "packer amazon import {{timestamp}}"
+                "Description": "packer image {{timestamp}}"
             },
             "run_tags": {
                 "Name": "packer-build-instance"
@@ -61,8 +59,21 @@
         {
             "type": "shell",
             "inline": [
-                "sudo yum update -y",
-                "sudo yum install -y git"
+                "sudo yum install -y -q git",
+                "sudo rpm -qa | egrep git"
+            ]
+        },
+        {
+            "type": "file",
+            "source": "provision/init-script.sh",
+            "destination": "~/init-script.sh"
+        },
+        {
+            "type": "shell",
+            "remote_folder": "~",
+            "inline": [
+                "bash ~/init-script.sh",
+                "rm ~/init-script.sh"
             ]
         }
     ]
